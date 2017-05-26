@@ -159,8 +159,6 @@
                     
                     所以想要控制表格的宽度，需要单元格中的内容进行限制
                     
-                    ### 设置文字内容的最大宽度，超过则省略
-                    
                     当单元格的中的内容可能很长的时候，我们需要设置一个最大的宽度
                     
                     <style>
@@ -227,7 +225,7 @@
                     </table>
                     ```
                     
-                    ### 表格内容换行
+                    ## 表格内容换行
                     
                     由于单元格宽度的不可控，有时候某些单元格会被其他单元格挤压而出现内容换行 ⬇️ ，这可能是我们不愿意看到的
                     
@@ -299,7 +297,7 @@
                     ```
                     <hr dashed>
                     
-                    另外一种情况，我们需要限制单元格的宽度，这时候标题不得不换行，但是中文和英文不同不会依据单词换行，导致换行比较奇怪⬇️，我们想要达到的效果是 产品 和 需要这两个词不要被破开
+                    另外一种情况，我们需要限制单元格的宽度，这时候标题不得不换行，但是中文和英文不同不会依据单词换行，导致换行比较奇怪⬇️，我们想要达到的效果是 ***产品*** 和 ***序号*** 这两个词不要被破开
                     
                     <table border>
                         <tr>
@@ -379,17 +377,16 @@
                     
                     ## table-layout
                     
-                    对于单元格宽度不可控的问题，还有一个非常简便的方法，设置 `table-layout:fixed`，默认为 `table-layout:auto`
+                    table-layout 可以改变 table 的布局策略。默认 `table-layout:auto`，还有一个可选值是 `table-layout: fixed`。
                     
-                    对于 `table-layout:fixed` 的表格有一下特性：
+                    auto 的时候也就是之前我们所讨论的情况，单元格的宽度会根据内容进行分配。必要的时候会强制撑开单元可或者表格。
                     
-                    1. 如果我们不设置单元格的宽度，单元格会平均分配表格空间。
-                    2. 并且宽度完全不受内容的影响，即使内容已经出了单元格的范围
+                    fixed 是另外一种策略，这种策略下的单元格或者表格的宽度并不受内容的影响。
                     
                     <table border style="table-layout: fixed">
                         <tr>
                             <th>产品序号</th>
-                            <th>TitleTitle</th>
+                            <th width="200px">width:100px</th>
                             <th>Title 3</th>
                             <th>Title 4</th>
                             <th>Title 5 </th>
@@ -404,6 +401,14 @@
                             <td>content</td>
                         </tr>
                     </table>
+                    
+                    fixed 模式下的表单分配策略非常简单，如果你设置了单元格的宽度，单元格就是这个宽度，剩余没有设置宽度的单元格会平均瓜分剩余的表格空间
+                    
+                    ## 讨论议题
+                    
+                    - 单元格内容省略之后如何处理
+                    - auto模式 还是 fixed模式
+                    - 换行的策略
                     
                 </section>
             </main>
@@ -452,7 +457,6 @@
            nav.innerHTML = '';
            if(!nav) return;
            headings.forEach(heading=>{
-               debugger;
                var arch = document.createElement('a');
                var index = parseInt(heading.tagName.substr(1,1))-2;
                heading.setAttribute('id', heading.innerText)
